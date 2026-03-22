@@ -15,14 +15,14 @@ export default function HomePage() {
     }}>
       {/* Navbar */}
       <header className="app-navbar" style={{
-        background: '#2ea3f2',
+        background: '#cc0099',
         padding: '0 20px',
         height: 56,
         flexShrink: 0,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        boxShadow: '0 2px 10px rgba(46,163,242,0.30)',
+        boxShadow: '0 2px 10px rgba(204,0,153,0.30)',
         zIndex: 100,
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
