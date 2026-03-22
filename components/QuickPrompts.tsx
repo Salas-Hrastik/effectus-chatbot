@@ -12,7 +12,7 @@ const PROMPTS = [
 export function QuickPrompts() {
   function ask(prompt: string) {
     window.dispatchEvent(
-      new CustomEvent('baltazar-ask', {
+      new CustomEvent('effectus-ask', {
         detail: prompt,
       })
     );

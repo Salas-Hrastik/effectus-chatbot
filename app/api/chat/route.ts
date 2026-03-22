@@ -1018,7 +1018,7 @@ function hardInterceptAdmissionsQuestion(question: string): string | null {
   if (q.includes('procedura upisa') || q.includes('postupak upisa') || q.includes('kako se upisati') ||
       q.includes('kako izgleda upis') || q.includes('kako izgleda procedura') || (q.includes('kako') && q.includes('upisati'))) {
     return [
-      "**Procedura upisa — EFFECTUS veleučilište Zaprešić**",
+      "**Procedura upisa — EFFECTUS veleučilište**",
       "",
       "**KORAK 1 — Potvrda namjere upisa**",
       "Nakon što Veleučilište potvrdi da ste ispunili uvjete, elektronički putem dobivate Obavijest o prihvaćanju te trebate potvrditi namjeru upisa.",
@@ -2922,7 +2922,7 @@ export async function POST(req: NextRequest) {
     const isMetaGreeting = /^(o čemu|o cemu|sto mozes|što možeš|kako možeš|kako mozes|što znaš|sto znas|pomozi mi|kako ti možeš|kako ti mozes|čemu možeš|cemu mozes|s čime možeš|s cime mozes|što sve možeš|sto sve mozes|kako funkcioniraš|kako funkcioniras|predstavi se|uvod)/i.test(userMessage.content.trim());
     if (isMetaGreeting) {
       return new Response([
-        'Zdravo! Ja sam Effy, informativni asistent EFFECTUS veleučilišta. 😊',
+        'Zdravo! Ja sam Effi, informativni asistent EFFECTUS veleučilišta. 😊',
         '',
         'Mogu vam pomoći s pitanjima o upisu, studijskim programima, školarini, nastavnicima, online studiranju i cjeloživotnom obrazovanju.',
         '',
@@ -3023,7 +3023,7 @@ export async function POST(req: NextRequest) {
 
       if (isRokoviQuery) {
         const rokoviAnswer = [
-          '**Upisni rokovi — EFFECTUS veleučilište Zaprešić (ak. god. 2026./2027.):**',
+          '**Upisni rokovi — EFFECTUS veleučilište (ak. god. 2026./2027.):**',
           '',
           'EFFECTUS veleučilište provodi upise u **4 upisna roka** kontinuirano kroz godinu:',
           '',

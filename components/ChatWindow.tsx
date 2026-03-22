@@ -762,8 +762,8 @@ export function ChatWindow({ institutionName, description, heroPrompts = [] }: C
             flexShrink: 0,
           }}>
             <img
-              src="/baltazar-logo.png"
-              alt="Baltazar"
+              src="/effectus-logo.png"
+              alt="Effectus"
               style={{ width: 92, height: 'auto', display: 'block', borderRadius: 7 }}
             />
           </div>
@@ -823,7 +823,7 @@ export function ChatWindow({ institutionName, description, heroPrompts = [] }: C
             }}>
               <div style={{ fontSize: 48, marginBottom: 14 }}>🎓</div>
               <div style={{ fontWeight: 600, fontSize: 18, marginBottom: 8 }}>
-                Dobrodošli na Baltazar AI Informator
+                Dobrodošli na Effectus AI Informator
               </div>
               <div style={{ fontSize: 15, lineHeight: 1.65, maxWidth: 420, margin: '0 auto' }}>
                 Upišite pitanje ili odaberite jednu od ponuđenih tema iznad.
