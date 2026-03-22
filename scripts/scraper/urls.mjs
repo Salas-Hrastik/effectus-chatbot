@@ -1,91 +1,86 @@
 /**
- * Canonical list of bak.hr pages to index — Croatian content only.
+ * Canonical list of effectus.com.hr pages to index — Croatian content only.
+ * NOTE: Effectus uses flat URLs (no /studiji/ subdirectory)
  * Grouped by entity_type for proper metadata tagging.
- * Skip all /en/ URLs — English content pollutes HR-language RAG.
  */
 
 export const PAGES = [
 
-  // ─── UPISI ────────────────────────────────────────────────────────────────
-  { url: 'https://www.bak.hr/upisi',                                            entity_type: 'upisi', entity_name: 'Upisi' },
-  { url: 'https://www.bak.hr/upisi/cesta-pitanja',                              entity_type: 'upisi', entity_name: 'Upisi — Česta pitanja' },
-  { url: 'https://www.bak.hr/upisi/postupak-i-termini-upisa',                   entity_type: 'upisi', entity_name: 'Postupak i termini upisa' },
-  { url: 'https://www.bak.hr/upisi/postupak-i-termini-upisa/online-studiranje-upisi-na-strucne-prijediplomske-studije', entity_type: 'upisi', entity_name: 'Upisi — prijediplomski online' },
-  { url: 'https://www.bak.hr/upisi/postupak-i-termini-upisa/online-studiranje-upisi-na-strucne-diplomske-studije',     entity_type: 'upisi', entity_name: 'Upisi — diplomski online' },
-  { url: 'https://www.bak.hr/upisi/postupak-i-termini-upisa/online-studiranje-upisi-na-strucni-kratki-studij',         entity_type: 'upisi', entity_name: 'Upisi — kratki studij online' },
-  { url: 'https://www.bak.hr/upisi/skolarina-i-pogodnosti',                     entity_type: 'upisi', entity_name: 'Školarina i pogodnosti' },
-  { url: 'https://www.bak.hr/upisi/upisni-centri',                              entity_type: 'upisi', entity_name: 'Upisni centri' },
-  { url: 'https://www.bak.hr/upisi/procedura-upisa',                            entity_type: 'upisi', entity_name: 'Procedura upisa' },
+  // ─── HOMEPAGE & O NAMA ────────────────────────────────────────────────────
+  { url: 'https://effectus.com.hr',                                           entity_type: 'opcenito', entity_name: 'EFFECTUS veleučilište' },
+  { url: 'https://effectus.com.hr/upoznaj-nas',                               entity_type: 'opcenito', entity_name: 'Upoznaj Effectus' },
+  { url: 'https://effectus.com.hr/misija-i-vizija',                           entity_type: 'opcenito', entity_name: 'Misija i vizija' },
+  { url: 'https://effectus.com.hr/organizacijska-struktura',                  entity_type: 'opcenito', entity_name: 'Organizacijska struktura' },
+  { url: 'https://effectus.com.hr/voditelji-studija',                         entity_type: 'opcenito', entity_name: 'Voditelji studija' },
+  { url: 'https://effectus.com.hr/voditelji-studijskih-grupa',                entity_type: 'opcenito', entity_name: 'Voditelji studijskih grupa' },
+  { url: 'https://effectus.com.hr/savjet-effectusa',                          entity_type: 'opcenito', entity_name: 'Savjet Effectusa' },
+  { url: 'https://effectus.com.hr/strategije',                                entity_type: 'opcenito', entity_name: 'Strategije' },
+  { url: 'https://effectus.com.hr/etika',                                     entity_type: 'opcenito', entity_name: 'Etika' },
+  { url: 'https://effectus.com.hr/akti-ustanove',                             entity_type: 'opcenito', entity_name: 'Akti ustanove' },
 
-  // ─── STUDIJSKI PROGRAMI — KRATKI ─────────────────────────────────────────
-  { url: 'https://www.bak.hr/studijski-programi/primijenjena-ekonomija',         entity_type: 'studij', entity_name: 'Primijenjena ekonomija' },
+  // ─── UPISI ────────────────────────────────────────────────────────────────
+  { url: 'https://effectus.com.hr/otvoreni-upisi',                            entity_type: 'upisi', entity_name: 'Otvoreni upisi' },
+  { url: 'https://effectus.com.hr/postupak-upisa-2',                          entity_type: 'upisi', entity_name: 'Postupak upisa' },
+  { url: 'https://effectus.com.hr/cijena-skolarine',                          entity_type: 'upisi', entity_name: 'Cijena školarine' },
+  { url: 'https://effectus.com.hr/prijemni-ispit',                            entity_type: 'upisi', entity_name: 'Prijemni ispit' },
+  { url: 'https://effectus.com.hr/upis-prijelazom-s-drugog-studija',          entity_type: 'upisi', entity_name: 'Upis prijelazom s drugog studija' },
+  { url: 'https://effectus.com.hr/ranjive-i-podzastupljene-skupine-studenata', entity_type: 'upisi', entity_name: 'Ranjive i podzastupljene skupine' },
 
   // ─── STUDIJSKI PROGRAMI — PRIJEDIPLOMSKI ─────────────────────────────────
-  { url: 'https://www.bak.hr/studijski-programi',                                entity_type: 'studij', entity_name: 'Studijski programi' },
-  { url: 'https://www.bak.hr/studijski-programi/poslovna-ekonomija-i-financije', entity_type: 'studij', entity_name: 'Poslovna ekonomija i financije' },
-  { url: 'https://www.bak.hr/studijski-programi/menadzment-uredskog-poslovanja', entity_type: 'studij', entity_name: 'Menadžment uredskog poslovanja' },
-  { url: 'https://www.bak.hr/studijski-programi/menadzment-u-kulturi-i-kulturnom-turizmu', entity_type: 'studij', entity_name: 'Menadžment u kulturi i kulturnom turizmu' },
-  { url: 'https://www.bak.hr/studijski-programi/informacijske-tehnologije',      entity_type: 'studij', entity_name: 'Informacijske tehnologije' },
-  { url: 'https://www.bak.hr/studijski-programi/socijalna-i-kulturna-integracija', entity_type: 'studij', entity_name: 'Socijalna i kulturna integracija' },
-  { url: 'https://www.bak.hr/studijski-programi/menadzment-u-turizmu-i-ugostiteljstvu', entity_type: 'studij', entity_name: 'Menadžment u turizmu i ugostiteljstvu' },
-  { url: 'https://www.bak.hr/studijski-programi/poslovna-ekonomija-i-financije-biograd-n-m', entity_type: 'studij', entity_name: 'Poslovna ekonomija i financije (Biograd)' },
+  { url: 'https://effectus.com.hr/financije-i-poslovno-pravo',                entity_type: 'studij', entity_name: 'Financije i poslovno pravo' },
+  { url: 'https://effectus.com.hr/pravo',                                     entity_type: 'studij', entity_name: 'Pravo' },
+  { url: 'https://effectus.com.hr/poslovna-ekonomija',                        entity_type: 'studij', entity_name: 'Poslovna ekonomija' },
+  { url: 'https://effectus.com.hr/poduzetnistvo-2',                           entity_type: 'studij', entity_name: 'Poduzetništvo' },
 
   // ─── STUDIJSKI PROGRAMI — DIPLOMSKI ───────────────────────────────────────
-  { url: 'https://www.bak.hr/studijski-programi/financije-i-investicije-novo',   entity_type: 'studij', entity_name: 'Financije i investicije' },
-  { url: 'https://www.bak.hr/studijski-programi/primijenjene-informacijske-tehnologije', entity_type: 'studij', entity_name: 'Primijenjene informacijske tehnologije' },
-  { url: 'https://www.bak.hr/studijski-programi/projektni-menadzment',           entity_type: 'studij', entity_name: 'Projektni menadžment' },
-  { url: 'https://www.bak.hr/studijski-programi/projektni-menadzment-osijek',    entity_type: 'studij', entity_name: 'Projektni menadžment (Osijek)' },
-  { url: 'https://www.bak.hr/studijski-programi/komunikacijski-menadzment',      entity_type: 'studij', entity_name: 'Komunikacijski menadžment' },
-  { url: 'https://www.bak.hr/studijski-programi/menadzment-javnog-sektora',      entity_type: 'studij', entity_name: 'Menadžment javnog sektora' },
+  { url: 'https://effectus.com.hr/diplomski-studiji',                         entity_type: 'studij', entity_name: 'Diplomski studiji' },
+  { url: 'https://effectus.com.hr/menadzment-financija',                      entity_type: 'studij', entity_name: 'Menadžment financija' },
+  { url: 'https://effectus.com.hr/menadzment-u-zdravstvu',                    entity_type: 'studij', entity_name: 'Menadžment u zdravstvu' },
+  { url: 'https://effectus.com.hr/menadzment-ljudskih-potencijala-i-znanja',  entity_type: 'studij', entity_name: 'Menadžment ljudskih potencijala i znanja' },
+  { url: 'https://effectus.com.hr/analiticki-menadzment',                     entity_type: 'studij', entity_name: 'Analitički menadžment' },
+  { url: 'https://effectus.com.hr/bihevioralna-ekonomija',                    entity_type: 'studij', entity_name: 'Bihevioralna ekonomija' },
+  { url: 'https://effectus.com.hr/porezi-i-poslovno-pravo',                   entity_type: 'studij', entity_name: 'Porezi i poslovno pravo' },
+  { url: 'https://effectus.com.hr/pravo-i-management-nekretnina',             entity_type: 'studij', entity_name: 'Pravo i management nekretnina' },
 
-  // ─── ONLINE STUDIRANJE ────────────────────────────────────────────────────
-  { url: 'https://www.bak.hr/online-studiranje',                                 entity_type: 'online_studij', entity_name: 'Online studiranje' },
-  { url: 'https://www.bak.hr/online-studiranje/o-online-studiranju',             entity_type: 'online_studij', entity_name: 'O online studiranju' },
-  { url: 'https://www.bak.hr/online-studiranje/cesta-pitanja',                   entity_type: 'online_studij', entity_name: 'Online studiranje — Česta pitanja' },
+  // ─── NASTAVNICI ───────────────────────────────────────────────────────────
+  { url: 'https://effectus.com.hr/nastavnici-i-suradnici',                    entity_type: 'opcenito', entity_name: 'Nastavnici i suradnici' },
+
+  // ─── STUDENTSKE SLUŽBE ────────────────────────────────────────────────────
+  { url: 'https://effectus.com.hr/sluzba-za-podrsku-studentima-i-nastavnicima', entity_type: 'opcenito', entity_name: 'Služba za podršku studentima i nastavnicima' },
+  { url: 'https://effectus.com.hr/knjiznica',                                 entity_type: 'opcenito', entity_name: 'Knjižnica' },
+  { url: 'https://effectus.com.hr/centar-karijera',                           entity_type: 'opcenito', entity_name: 'Centar karijera' },
+  { url: 'https://effectus.com.hr/centar-savjetovanja',                       entity_type: 'opcenito', entity_name: 'Centar savjetovanja' },
+  { url: 'https://effectus.com.hr/studentski-zbor',                           entity_type: 'opcenito', entity_name: 'Studentski zbor' },
+  { url: 'https://effectus.com.hr/alumni',                                    entity_type: 'opcenito', entity_name: 'Alumni' },
+  { url: 'https://effectus.com.hr/akademski-kalendar',                        entity_type: 'opcenito', entity_name: 'Akademski kalendar' },
+  { url: 'https://effectus.com.hr/korisnicki-identiteti-u-ldap-imeniku',     entity_type: 'opcenito', entity_name: 'Korisnički identiteti (AAI)' },
 
   // ─── CJELOŽIVOTNO OBRAZOVANJE ─────────────────────────────────────────────
-  { url: 'https://www.bak.hr/cjelozivotno-obrazovanje',                          entity_type: 'cjelozivotni_program', entity_name: 'Cjeloživotno obrazovanje' },
-  { url: 'https://www.bak.hr/cjelozivotno-obrazovanje/o-cjelozivotnom-obrazovanju-i-ucenju', entity_type: 'cjelozivotni_program', entity_name: 'O cjeloživotnom obrazovanju' },
-  { url: 'https://www.bak.hr/cjelozivotno-obrazovanje/turisticki-vodic',         entity_type: 'cjelozivotni_program', entity_name: 'Turistički vodič' },
-  { url: 'https://www.bak.hr/cjelozivotno-obrazovanje/voditelj-poslova-u-turistickoj-agenciji-priprema-za-polaganje-strucnog-ispita', entity_type: 'cjelozivotni_program', entity_name: 'Voditelj poslova u turističkoj agenciji' },
-  { url: 'https://www.bak.hr/cjelozivotno-obrazovanje/upravljanje-i-procjena-vrijednosti-nekretnina', entity_type: 'cjelozivotni_program', entity_name: 'Upravljanje i procjena vrijednosti nekretnina' },
-  { url: 'https://www.bak.hr/cjelozivotno-obrazovanje/akademija-projektnog-menadzmenta-baltazar', entity_type: 'cjelozivotni_program', entity_name: 'Akademija projektnog menadžmenta' },
-  { url: 'https://www.bak.hr/cjelozivotno-obrazovanje/interpretacija-bastine-za-razvoj-turistickog-proizvoda', entity_type: 'cjelozivotni_program', entity_name: 'Interpretacija baštine za razvoj turističkog proizvoda' },
-  { url: 'https://www.bak.hr/cjelozivotno-obrazovanje/hrvatski-jezik-i-kultura-za-strance', entity_type: 'cjelozivotni_program', entity_name: 'Hrvatski jezik i kultura za strance' },
-  { url: 'https://www.bak.hr/cjelozivotno-obrazovanje/upravljanje-eu-projektima', entity_type: 'cjelozivotni_program', entity_name: 'Upravljanje EU projektima' },
-  { url: 'https://www.bak.hr/cjelozivotno-obrazovanje/suvremeni-trendovi-u-gastronomiji', entity_type: 'cjelozivotni_program', entity_name: 'Suvremeni trendovi u gastronomiji' },
-  { url: 'https://www.bak.hr/cjelozivotno-obrazovanje/osnove-racunovodstva-za-pocetnike-korak-po-korak-do-financijske-pismenosti', entity_type: 'cjelozivotni_program', entity_name: 'Osnove računovodstva za početnike' },
-  { url: 'https://www.bak.hr/cjelozivotno-obrazovanje/web-dizajn-u-wordpressu',  entity_type: 'cjelozivotni_program', entity_name: 'Web-dizajn u WordPressu' },
-  { url: 'https://www.bak.hr/cjelozivotno-obrazovanje/specijalist-ica-za-digitalni-marketing-vaucer', entity_type: 'cjelozivotni_program', entity_name: 'Specijalist za digitalni marketing' },
-
-  // ─── O NAMA ───────────────────────────────────────────────────────────────
-  { url: 'https://www.bak.hr/o-nama',                                            entity_type: 'opcenito', entity_name: 'O Veleučilištu Baltazar' },
-  { url: 'https://www.bak.hr/o-nama/menadzment-veleucilista',                    entity_type: 'opcenito', entity_name: 'Menadžment Veleučilišta' },
-  // { url: 'https://www.bak.hr/o-nama/o-baltazaru', entity_type: 'opcenito' },  // 404
-  { url: 'https://www.bak.hr/o-nama/misija-vizija-vrijednosti',                  entity_type: 'opcenito', entity_name: 'Misija, vizija i vrijednosti' },
-  { url: 'https://www.bak.hr/o-nama/kvaliteta',                                  entity_type: 'opcenito', entity_name: 'Kvaliteta' },
-  { url: 'https://www.bak.hr/o-nama/dokumenti',                                  entity_type: 'opcenito', entity_name: 'Dokumenti' },
-
-  // ─── OPĆE FAQ ─────────────────────────────────────────────────────────────
-  // /cesta-pitanja redirects to /medunarodna-suradnja/cesta-pitanja (empty page)
-  // Use specific FAQ pages instead: /upisi/cesta-pitanja and /online-studiranje/cesta-pitanja
-
-  // ─── MEĐUNARODNA SURADNJA ─────────────────────────────────────────────────
-  { url: 'https://www.bak.hr/medunarodna-suradnja',                              entity_type: 'opcenito', entity_name: 'Međunarodna suradnja' },
-  { url: 'https://www.bak.hr/medunarodna-suradnja/erasmus-study',                entity_type: 'opcenito', entity_name: 'Erasmus+ studij' },
-  { url: 'https://www.bak.hr/medunarodna-suradnja/erasmus-studentska-praksa',    entity_type: 'opcenito', entity_name: 'Erasmus+ studentska praksa' },
-  { url: 'https://www.bak.hr/medunarodna-suradnja/odlazna-studentska-mobilnost', entity_type: 'opcenito', entity_name: 'Odlazna studentska mobilnost' },
+  { url: 'https://effectus.com.hr/cjelozivotno-obrazovanje',                  entity_type: 'cjelozivotni_program', entity_name: 'Cjeloživotno obrazovanje' },
+  { url: 'https://effectus.com.hr/certifikati',                               entity_type: 'cjelozivotni_program', entity_name: 'Certifikati' },
+  { url: 'https://effectus.com.hr/mini-mba-doing-business-4-0-db4-executive', entity_type: 'cjelozivotni_program', entity_name: 'Mini MBA — Executive' },
+  { url: 'https://effectus.com.hr/mini-mba-doing-business-4-0-db4-management', entity_type: 'cjelozivotni_program', entity_name: 'Mini MBA — Management' },
+  { url: 'https://effectus.com.hr/mini-mba-doing-business-4-0-db4-operative', entity_type: 'cjelozivotni_program', entity_name: 'Mini MBA — Operative' },
+  { url: 'https://effectus.com.hr/drustveno-odgovorno-poslovanje',            entity_type: 'cjelozivotni_program', entity_name: 'Društveno odgovorno poslovanje' },
+  { url: 'https://effectus.com.hr/porezni-a-specijalist-ica-2',              entity_type: 'cjelozivotni_program', entity_name: 'Porezni/a specijalist/ica' },
+  { url: 'https://effectus.com.hr/voditelj-ica-nadzora-i-korporativnog-upravljanja-2', entity_type: 'cjelozivotni_program', entity_name: 'Voditelj/ica nadzora i korporativnog upravljanja' },
+  { url: 'https://effectus.com.hr/osnove-financijske-pismenosti-i-savjetovanje-potrosaca-u-riziku-prezaduzenosti', entity_type: 'cjelozivotni_program', entity_name: 'Osnove financijske pismenosti' },
+  { url: 'https://effectus.com.hr/pravo-i-upravljanje-nekretninama',          entity_type: 'cjelozivotni_program', entity_name: 'Pravo i upravljanje nekretninama' },
 
   // ─── KONTAKT ──────────────────────────────────────────────────────────────
-  { url: 'https://www.bak.hr/kontakt',                                           entity_type: 'opcenito', entity_name: 'Kontakt' },
+  { url: 'https://effectus.com.hr/kontakt',                                   entity_type: 'opcenito', entity_name: 'Kontakt' },
 ];
 
-// Pages to SKIP even if discovered via crawl
+// Pages to SKIP
 export const SKIP_PATTERNS = [
-  /\/en\//,                  // English content
-  /\/pravila-privatnosti/,   // Privacy policy
-  /\/uvjeti-koristenja/,     // Terms of use
-  /\/odrziva-istina/,        // Blog posts
-  /\/novosti\//,             // News items
-  /\/media\//,               // Media files
+  /\/en\b/,                    // English content
+  /\/politika-privatnosti/,    // Privacy policy
+  /\/izjava-o-zastiti/,        // Data protection
+  /\/novosti\//,               // News items (dynamic)
+  /\/media\//,                 // Media files
+  /\/wp-admin\//,              // WordPress admin
+  /\/wp-json\//,               // WP API
+  /\/page\//,                  // Pagination
+  /\?/,                        // Query strings
+  /\.pdf$/,                    // PDFs
 ];

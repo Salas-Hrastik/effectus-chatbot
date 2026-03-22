@@ -66,7 +66,7 @@ type EnrichedChunk = {
 
 const DATABASE_URL = process.env.DATABASE_URL;
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-const TENANT_ID = process.env.TENANT_ID || 'baltazar';
+const TENANT_ID = process.env.TENANT_ID || 'effectus';
 const EMBEDDING_MODEL = process.env.EMBEDDING_MODEL || 'text-embedding-3-small';
 const INPUT_PATH = process.env.INGEST_INPUT_PATH || path.join(process.cwd(), 'data', 'documents.json');
 const DEBUG = process.env.DEBUG_INGEST === 'true';
@@ -109,10 +109,10 @@ function cleanEntityDisplayName(name: string): string {
   let value = cleanText(name || '');
 
   value = value
-    .replace(/\s+-\s+Veleučilište Baltazar Zaprešić\s*$/i, '')
-    .replace(/\s+-\s+Veleuciliste Baltazar Zapresic\s*$/i, '')
-    .replace(/\s*\|\s*Veleučilište Baltazar Zaprešić\s*$/i, '')
-    .replace(/\s*\|\s*Veleuciliste Baltazar Zapresic\s*$/i, '')
+    .replace(/\s+-\s+EFFECTUS veleučilište\s*$/i, '')
+    .replace(/\s+-\s+EFFECTUS veleuciliste\s*$/i, '')
+    .replace(/\s*\|\s*EFFECTUS veleučilište\s*$/i, '')
+    .replace(/\s*\|\s*EFFECTUS veleuciliste\s*$/i, '')
     .trim();
 
   return value;
@@ -158,7 +158,7 @@ function stripBoilerplate(input: string): string {
     if (idx !== -1) { text = text.slice(0, idx); break; }
   }
 
-  // 2) Navigacijska traka bak.hr — pojavljuje se na svakoj stranici
+  // 2) Navigacijska traka effectus.com.hr — pojavljuje se na svakoj stranici
   //    Sadržaj počinje NAKON zadnjeg poznatog nav end markera.
   const navEndMarkers = [
     'Upute za online nastavu',          // HR
@@ -189,8 +189,8 @@ function stripBoilerplate(input: string): string {
 
   // 3) Footer — od IBAN oznake do kraja
   const footerMarkers = [
-    'Veleučilište s pravom javnosti BALTAZAR ZAPREŠIĆ 10290 Zaprešić, Vladimira Novaka 23 IBAN:',
-    'BALTAZAR ZAPREŠIĆ 10290 Zaprešić, Vladimira Novaka 23 IBAN:',
+    'Veleučilište s pravom javnosti EFFECTUS veleučilište — footer —',
+    'EFFECTUS veleučilište — footer —',
   ];
   for (const marker of footerMarkers) {
     const idx = text.indexOf(marker);

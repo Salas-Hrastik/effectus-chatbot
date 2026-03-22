@@ -30,7 +30,7 @@ const { Pool }   = require('pg');
 const OpenAI     = require('openai');
 const axios      = require('axios');
 
-const TENANT_ID  = 'baltazar';
+const TENANT_ID  = process.env.TENANT_ID || 'effectus';
 const DRY_RUN    = process.argv.includes('--dry-run');
 const URL_FILTER = (() => {
   const idx = process.argv.indexOf('--url');
@@ -52,7 +52,7 @@ async function fetchPage(url) {
   try {
     const resp = await axios.get(url, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 BaltazarBot/1.0 (university-chatbot; info@bak.hr)',
+        'User-Agent': 'Mozilla/5.0 EffectusBot/1.0 (university-chatbot; info@effectus.com.hr)',
         'Accept-Language': 'hr,en;q=0.5',
         'Accept': 'text/html,application/xhtml+xml',
       },
@@ -214,7 +214,7 @@ async function main() {
     ? PAGES.filter(p => p.url.includes(URL_FILTER))
     : PAGES;
 
-  console.log(`\n🚀 Baltazar re-scraping — ${pages.length} stranica`);
+  console.log(`\n🚀 Effectus scraping — ${pages.length} stranica`);
   console.log(DRY_RUN ? '   Mode: DRY RUN (bez upisa u Supabase)\n' : '   Mode: LIVE\n');
 
   const stats = { ok: 0, empty: 0, error: 0, total_chunks: 0 };

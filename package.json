@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit",
     "test": "jest",
     "ingest": "tsx scripts/ingest.ts",
+    "scrape": "node scripts/scraper/run.mjs",
     "eval": "tsx scripts/eval.ts"
   },
   "dependencies": {
