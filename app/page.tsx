@@ -30,7 +30,6 @@ export default function HomePage() {
             src="/effectus-logo.png"
             alt="Effectus"
             style={{ height: 34, width: 'auto', borderRadius: 5 }}
-            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
           />
           <span className="app-navbar-title" style={{ color: '#fff', fontWeight: 700, fontSize: 18, letterSpacing: '-0.01em' }}>
             EFFECTUS veleučilište
