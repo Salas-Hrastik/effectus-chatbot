@@ -1,0 +1,383 @@
+export type StudyLocation = "biograd" | "osijek" | "zapresic";
+
+function normalizeText(value: string): string {
+  return value
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
+
+export const STUDY_STRUCTURE = {
+  biograd: {
+    role: "Dislocirani studijski centar za klasičnu nastavu",
+    classicalStudies: [
+      {
+        name: "Poslovna ekonomija i financije",
+        level: "stručni prijediplomski studij",
+        source:
+          "https://www.bak.hr/en/studijski-programi/poslovna-ekonomija-i-financije-biograd-n-m",
+      },
+      {
+        name: "Menadžment u turizmu i ugostiteljstvu",
+        level: "stručni prijediplomski studij",
+        source:
+          "https://www.bak.hr/en/studijski-programi/menadzment-u-turizmu-i-ugostiteljstvu",
+      },
+    ],
+    note:
+      "Studenti u Biogradu na Moru mogu pohađati i online studije Veleučilišta Baltazar, neovisno o lokaciji.",
+    source:
+      "https://www.bak.hr/en/studijski-programi/poslovna-ekonomija-i-financije-biograd-n-m",
+  },
+
+  osijek: {
+    role: "Dislocirani studijski centar i upisno mjesto",
+    classicalStudies: [
+      {
+        name: "Projektni menadžment",
+        level: "stručni diplomski studij",
+        source:
+          "https://www.bak.hr/en/studijski-programi/projektni-menadzment-osijek",
+      },
+    ],
+    note:
+      "Osijek je uz Biograd i upisno mjesto za online studije Veleučilišta Baltazar.",
+    source:
+      "https://www.bak.hr/en/studijski-programi/projektni-menadzment-osijek",
+  },
+
+  zapresic: {
+    role: "Sjedište Veleučilišta Baltazar",
+    classicalNote:
+      "Klasična nastava izvodi se u Biogradu na Moru i Osijeku.",
+    onlineStudies: [
+      "Poslovanje i upravljanje",
+      "Primijenjena ekonomija",
+      "Informacijske tehnologije",
+      "Projektni menadžment",
+      "Komunikacijski menadžment",
+      "Menadžment javnog sektora",
+      "Financije i investicije",
+      "Primijenjene informacijske tehnologije",
+      "Socijalna i kulturna integracija",
+    ],
+    source: "https://www.bak.hr/studijski-programi",
+  },
+
+  admissions: {
+    tuitionSource: "https://www.bak.hr/upisi",
+    procedureSource: "https://www.bak.hr/upisi/procedura-upisa",
+    generalSource: "https://www.bak.hr/upisi",
+  },
+} as const;
+
+function detectSpecificStudy(question: string): { name: string; location?: string; source?: string } | null {
+  const q = normalizeText(question);
+
+  if (
+    q.includes("menadzment u turizmu i ugostiteljstvu") ||
+    q.includes("menadžment u turizmu i ugostiteljstvu")
+  ) {
+    return {
+      name: "Menadžment u turizmu i ugostiteljstvu",
+      location: "Biograd na Moru",
+      source: "https://www.bak.hr/en/studijski-programi/menadzment-u-turizmu-i-ugostiteljstvu",
+    };
+  }
+
+  if (
+    q.includes("poslovna ekonomija i financije")
+  ) {
+    return {
+      name: "Poslovna ekonomija i financije",
+      location: q.includes("biograd") ? "Biograd na Moru" : undefined,
+      source: q.includes("biograd")
+        ? "https://www.bak.hr/en/studijski-programi/poslovna-ekonomija-i-financije-biograd-n-m"
+        : "https://www.bak.hr/studijski-programi/poslovna-ekonomija-i-financije",
+    };
+  }
+
+  if (q.includes("projektni menadzment") || q.includes("projektni menadžment")) {
+    return {
+      name: "Projektni menadžment",
+      location: q.includes("osijek") ? "Osijek" : undefined,
+      source: q.includes("osijek")
+        ? "https://www.bak.hr/en/studijski-programi/projektni-menadzment-osijek"
+        : "https://www.bak.hr/studijski-programi/projektni-menadzment",
+    };
+  }
+
+  return null;
+}
+
+export function formatStudyAdmissionsAnswer(question: string): string | null {
+  const q = normalizeText(question);
+
+  const asksAdmissions =
+    q.includes("uvjeti upisa") ||
+    q.includes("koji su uvjeti upisa") ||
+    q.includes("procedura upisa") ||
+    q.includes("postupak upisa") ||
+    q.includes("kako se upisati") ||
+    q.includes("upis na studij") ||
+    q.includes("skolarina") ||
+    q.includes("cijena studija");
+
+  if (!asksAdmissions) return null;
+
+  const specificStudy = detectSpecificStudy(question);
+
+  if (q.includes("skolarina") || q.includes("cijena studija")) {
+    if (specificStudy) {
+      const locationLine = specificStudy.location
+        ? `Za studij **${specificStudy.name}** koji se izvodi u **${specificStudy.location}** `
+        : `Za studij **${specificStudy.name}** `;
+      return [
+        `${locationLine}točan i ažuran iznos školarine potrebno je provjeriti na službenim stranicama Veleučilišta Baltazar, jer školarina ovisi o vrsti studija i modelu izvođenja.`,
+        "",
+        "Drugim riječima, bot je prepoznao konkretan studij koji vas zanima, ali ne navodi iznos bez službene potvrde.",
+        "",
+        `🔹 Izvor: ${specificStudy.source ?? STUDY_STRUCTURE.admissions.tuitionSource}`,
+      ].join("\n");
+    }
+
+    if (q.includes("biograd")) {
+      return [
+        "Školarina za studije u Biogradu na Moru ovisi o službenom cjeniku Veleučilišta Baltazar, pa je za točan i ažuran iznos potrebno provjeriti službene informacije o upisima.",
+        "",
+        "U Biogradu na Moru klasično se izvode samo dva stručna prijediplomska studija:",
+        "• Poslovna ekonomija i financije",
+        "• Menadžment u turizmu i ugostiteljstvu",
+        "",
+        `🔹 Izvor: ${STUDY_STRUCTURE.admissions.tuitionSource}`,
+      ].join("\n");
+    }
+
+    if (q.includes("osijek")) {
+      return [
+        "Školarina za studij u Osijeku ovisi o službenom cjeniku Veleučilišta Baltazar, pa je za točan i ažuran iznos potrebno provjeriti službene informacije o upisima.",
+        "",
+        "U Osijeku se klasično izvodi jedan stručni diplomski studij:",
+        "• Projektni menadžment",
+        "",
+        `🔹 Izvor: ${STUDY_STRUCTURE.admissions.tuitionSource}`,
+      ].join("\n");
+    }
+
+    return [
+      "Školarina na Veleučilištu Baltazar ovisi o vrsti studija i modelu izvođenja (klasični ili online), pa je za točan i ažuran iznos potrebno provjeriti službene informacije o upisima i važeći cjenik.",
+      "",
+      "Ako želite, mogu odgovor prilagoditi točno određenom studiju ili lokaciji.",
+      "",
+      `🔹 Izvor: ${STUDY_STRUCTURE.admissions.tuitionSource}`,
+    ].join("\n");
+  }
+
+  if (q.includes("biograd")) {
+    return [
+      "Za upis na studij u Biogradu na Moru potrebno je pratiti službene uvjete i rokove upisa Veleučilišta Baltazar.",
+      "",
+      "U Biogradu na Moru klasično se izvode samo dva stručna prijediplomska studija:",
+      "• Poslovna ekonomija i financije",
+      "• Menadžment u turizmu i ugostiteljstvu",
+      "",
+      "Točne uvjete upisa, potrebnu dokumentaciju i rokove možete pronaći na službenoj stranici upisa.",
+      "",
+      "Mogu vam pomoći i s:",
+      "1️⃣ Kolika je školarina na Veleučilištu Baltazar?",
+      "2️⃣ Koliko traje studij u Biogradu na Moru?",
+      "3️⃣ Kako izgleda procedura upisa?",
+      "4️⃣ Kako izgleda online studiranje na Baltazaru?",
+      "",
+      `🔹 Izvor: ${STUDY_STRUCTURE.admissions.generalSource}`,
+    ].join("\n");
+  }
+
+  if (q.includes("osijek")) {
+    return [
+      "Za upis na studij u Osijeku potrebno je pratiti službene uvjete i rokove upisa Veleučilišta Baltazar.",
+      "",
+      "U Osijeku se klasično izvodi jedan stručni diplomski studij:",
+      "• Projektni menadžment",
+      "",
+      "Osijek je također upisno mjesto za online studije Veleučilišta Baltazar.",
+      "",
+      "Točne uvjete upisa, potrebnu dokumentaciju i rokove možete pronaći na službenoj stranici upisa.",
+      "",
+      "Mogu vam pomoći i s:",
+      "1️⃣ Kolika je školarina na Veleučilištu Baltazar?",
+      "2️⃣ Kako izgleda procedura upisa?",
+      "3️⃣ Kako izgleda online studiranje na Baltazaru?",
+      "4️⃣ Koji studiji postoje u Osijeku?",
+      "",
+      `🔹 Izvor: ${STUDY_STRUCTURE.admissions.generalSource}`,
+    ].join("\n");
+  }
+
+  return [
+    "Uvjeti upisa ovise o studiju koji želite upisati, ali službene uvjete, potrebnu dokumentaciju i rokove najbolje je provjeriti na stranici upisa Veleučilišta Baltazar.",
+    "",
+    "Mogu vam pomoći i s:",
+    "1️⃣ Koji studiji postoje u Biogradu na Moru?",
+    "2️⃣ Koji studiji postoje u Osijeku?",
+    "3️⃣ Kolika je školarina na Veleučilištu Baltazar?",
+    "4️⃣ Kako izgleda online studiranje na Baltazaru?",
+    "",
+    `🔹 Izvor: ${STUDY_STRUCTURE.admissions.generalSource}`,
+  ].join("\n");
+}
+
+export function formatStudyLocationAnswer(question: string): string | null {
+  const q = normalizeText(question);
+
+  if (
+    q.includes("uvjeti upisa") ||
+    q.includes("upis") ||
+    q.includes("procedura upisa") ||
+    q.includes("postupak upisa") ||
+    q.includes("skolarina") ||
+    q.includes("cijena studija")
+  ) {
+    return null;
+  }
+
+  const isStudyQuestion =
+    q.includes("studij") ||
+    q.includes("studiji") ||
+    q.includes("studirati") ||
+    q.includes("program");
+
+  if (!isStudyQuestion) return null;
+
+  if (q.includes("biograd")) {
+    const studies = STUDY_STRUCTURE.biograd.classicalStudies
+      .map((s) => `• ${s.name}`)
+      .join("\n");
+
+    return [
+      "U Biogradu na Moru klasično se izvode:",
+      "",
+      "**🎓 Stručni prijediplomski studiji**",
+      studies,
+      "",
+      STUDY_STRUCTURE.biograd.note,
+      "",
+      "Mogu vam pomoći i s:",
+      "1️⃣ Koji su uvjeti upisa za studij u Biogradu na Moru?",
+      "2️⃣ Kolika je školarina na Veleučilištu Baltazar?",
+      "3️⃣ Koliko traje studij u Biogradu na Moru?",
+      "4️⃣ Kako izgleda online studiranje na Baltazaru?",
+      "",
+      `🔹 Izvor: ${STUDY_STRUCTURE.biograd.source}`,
+    ].join("\n");
+  }
+
+  if (q.includes("osijek")) {
+    const studies = STUDY_STRUCTURE.osijek.classicalStudies
+      .map((s) => `• ${s.name}`)
+      .join("\n");
+
+    return [
+      "U Osijeku se klasično izvodi:",
+      "",
+      "**🎓 Stručni diplomski studij**",
+      studies,
+      "",
+      STUDY_STRUCTURE.osijek.note,
+      "",
+      "Mogu vam pomoći i s:",
+      "1️⃣ Koji su uvjeti upisa za studij u Osijeku?",
+      "2️⃣ Kolika je školarina na Veleučilištu Baltazar?",
+      "3️⃣ Koliko traje studij u Osijeku?",
+      "4️⃣ Kako izgleda online studiranje na Baltazaru?",
+      "",
+      `🔹 Izvor: ${STUDY_STRUCTURE.osijek.source}`,
+    ].join("\n");
+  }
+
+  if (q.includes("zapresic")) {
+    const studies = STUDY_STRUCTURE.zapresic.onlineStudies
+      .map((s) => `• ${s}`)
+      .join("\n");
+
+    return [
+      "Zaprešić je sjedište Veleučilišta Baltazar.",
+      "",
+      STUDY_STRUCTURE.zapresic.classicalNote,
+      "",
+      "**📍 Biograd na Moru**",
+      "• Poslovna ekonomija i financije",
+      "• Menadžment u turizmu i ugostiteljstvu",
+      "",
+      "**📍 Osijek**",
+      "• Projektni menadžment",
+      "",
+      "**💻 Online studiji Veleučilišta Baltazar**",
+      studies,
+      "",
+      "Biograd i Osijek su, uz svoje klasične studije, također upisna mjesta za online studije, dok je Zaprešić sjedište i organizacijsko središte Veleučilišta.",
+      "",
+      "Mogu vam pomoći i s:",
+      "1️⃣ Koji su uvjeti upisa na Veleučilište Baltazar?",
+      "2️⃣ Kolika je školarina na Veleučilištu Baltazar?",
+      "3️⃣ Kako izgleda procedura upisa?",
+      "4️⃣ Kako izgleda online studiranje na Baltazaru?",
+      "",
+      `🔹 Izvor: ${STUDY_STRUCTURE.zapresic.source}`,
+    ].join("\n");
+  }
+
+  return null;
+}
+
+export function formatStudySupportAnswer(question: string): string | null {
+  const q = normalizeText(question);
+
+  if (
+    q.includes("online studiranje") ||
+    q.includes("online studij") ||
+    q.includes("kako izgleda online studiranje")
+  ) {
+    return [
+      "Online studiji Veleučilišta Baltazar dostupni su studentima neovisno o mjestu stanovanja.",
+      "",
+      "Biograd i Osijek, uz svoje klasične studije, služe i kao upisna mjesta za online studije, dok je Zaprešić sjedište i organizacijsko središte Veleučilišta.",
+      "",
+      "Mogu vam pomoći i s:",
+      "1️⃣ Koji studiji postoje u Zaprešiću?",
+      "2️⃣ Kolika je školarina na Veleučilištu Baltazar?",
+      "3️⃣ Kako izgleda procedura upisa?",
+      "4️⃣ Koji su uvjeti upisa?",
+      "",
+      `🔹 Izvor: ${STUDY_STRUCTURE.admissions.generalSource}`,
+    ].join("\n");
+  }
+
+  if (
+    q.includes("koliko traje studij u biogradu") ||
+    q.includes("trajanje studija u biogradu")
+  ) {
+    return [
+      "Studiji koji se klasično izvode u Biogradu na Moru su **stručni prijediplomski studiji** i traju **3 godine**.",
+      "",
+      "U Biogradu se izvode samo:",
+      "• Poslovna ekonomija i financije",
+      "• Menadžment u turizmu i ugostiteljstvu",
+      "",
+      `🔹 Izvor: ${STUDY_STRUCTURE.biograd.source}`,
+    ].join("\n");
+  }
+
+  if (
+    q.includes("koliko traje studij u osijeku") ||
+    q.includes("trajanje studija u osijeku")
+  ) {
+    return [
+      "U Osijeku se klasično izvodi **stručni diplomski studij Projektni menadžment**.",
+      "",
+      `🔹 Izvor: ${STUDY_STRUCTURE.osijek.source}`,
+    ].join("\n");
+  }
+
+  return null;
+}

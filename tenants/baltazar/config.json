@@ -1,0 +1,56 @@
+{
+  "tenantId": "baltazar",
+  "tenantName": "Veleučilište Baltazar",
+  "baseDomain": "www.bak.hr",
+  "baseUrl": "https://www.bak.hr",
+  "language": "hr",
+  "crawler": {
+    "respectRobots": true,
+    "sameDomainOnly": true,
+    "maxDepth": 4,
+    "maxPages": 2500,
+    "timeoutMs": 20000,
+    "userAgent": "Mozilla/5.0 (compatible; BaltazarBot/1.0; +https://www.bak.hr)"
+  },
+  "allowPrefixes": [
+    "https://www.bak.hr/",
+    "https://bak.hr/"
+  ],
+  "denyPatterns": [
+    "/wp-content/uploads/",
+    "/feed/",
+    "/tag/",
+    "/author/",
+    "/?s=",
+    "/#",
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".gif",
+    ".webp",
+    ".svg",
+    ".zip",
+    ".rar",
+    ".mp4",
+    ".mp3"
+  ],
+  "seedUrls": [
+    "https://www.bak.hr/",
+    "https://www.bak.hr/upisi/",
+    "https://www.bak.hr/studijski-programi/",
+    "https://www.bak.hr/online-studiranje/",
+    "https://www.bak.hr/cjelozivotno-obrazovanje/",
+    "https://www.bak.hr/studenti/",
+    "https://www.bak.hr/studenti/raspored-nastave/",
+    "https://www.bak.hr/kontakt/",
+    "https://www.bak.hr/o-nama/biograd-na-moru/"
+  ],
+  "prioritySeeds": [
+    "https://www.bak.hr/upisi/",
+    "https://www.bak.hr/studijski-programi/",
+    "https://www.bak.hr/online-studiranje/",
+    "https://www.bak.hr/cjelozivotno-obrazovanje/",
+    "https://www.bak.hr/o-nama/biograd-na-moru/",
+    "https://www.bak.hr/kontakt/"
+  ]
+}

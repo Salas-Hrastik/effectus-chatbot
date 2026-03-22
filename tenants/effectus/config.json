@@ -1,0 +1,28 @@
+{
+  "tenantId": "effectus",
+  "baseUrl": "https://effectus.com.hr",
+  "crawlerOptions": {
+    "respectRobots": true,
+    "sameDomainOnly": true,
+    "maxDepth": 4,
+    "maxPages": 2500,
+    "timeoutMs": 20000,
+    "denyPatterns": [
+      "\\.jpg$", "\\.jpeg$", "\\.png$", "\\.gif$", "\\.svg$", "\\.webp$",
+      "\\.pdf$", "\\.zip$", "\\.doc$", "\\.docx$",
+      "/wp-admin/", "/wp-login", "/wp-json/",
+      "/feed/", "/tag/", "/author/",
+      "\\?s=", "\\?p=", "#"
+    ]
+  },
+  "contentGroups": {
+    "upisi": ["upisi", "prijava", "upisni-rok", "skolarina", "stipendije"],
+    "studijski_programi": ["studiji", "preddiplomski", "diplomski", "specijalisticki", "studijski-program"],
+    "cjelozivotno": ["cjelozivotno", "tecaj", "program-obrazovanja", "poslovno-uciliste"],
+    "o_instituciji": ["o-nama", "misija", "povijest", "akreditacija", "o-effectusu"],
+    "referada": ["studentske-sluzbe", "referada", "studentski-servis", "kontakt"],
+    "nastavnici": ["nastavnici", "suradnici", "osoblje", "tim"],
+    "kolegiji": ["kolegiji", "predmeti", "kurikulum", "plan-i-program"],
+    "novosti": ["novosti", "obavijesti", "aktualno", "vijesti"]
+  }
+}
