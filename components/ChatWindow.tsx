@@ -750,21 +750,16 @@ export function ChatWindow({ institutionName, description, heroPrompts = [] }: C
             </h1>
 
             <p className="hero-desc" style={{ fontSize: 15, lineHeight: 1.6, opacity: 0.9, maxWidth: 620 }}>
-              Postavite pitanje o upisima, školarini, online studiranju,
+              Postavite pitanje o upisima, školarini,
               studijskim programima i cjeloživotnom obrazovanju.
             </p>
           </div>
 
-          <div className="hero-logo" style={{
-            background: 'rgba(255,255,255,0.15)',
-            border: '1px solid rgba(255,255,255,0.22)',
-            borderRadius: 12, padding: 7,
-            flexShrink: 0,
-          }}>
+          <div className="hero-logo" style={{ flexShrink: 0 }}>
             <img
               src="/effectus-logo.png"
               alt="Effectus"
-              style={{ width: 92, height: 'auto', display: 'block', borderRadius: 7 }}
+              style={{ width: 200, height: 'auto', display: 'block' }}
             />
           </div>
         </div>

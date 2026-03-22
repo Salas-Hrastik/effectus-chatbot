@@ -73,7 +73,6 @@ export default function HomePage() {
             'Kolika je školarina?',
             'Kako se upisati na Effectus?',
             'Koji studijski programi postoje?',
-            'Postoji li online studij?',
             'Koji su rokovi upisa?',
             'Koje programe cjeloživotnog obrazovanja nudite?',
           ]}
