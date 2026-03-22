@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { ChatWindow } from '@/components/ChatWindow';
 import { getTenantConfig } from '@/lib/tenant';
 

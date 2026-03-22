@@ -975,30 +975,7 @@ function answerStudyLocationQuestion(question: string): string | null {
 
   if (!isStudyQuestion) return null;
 
-  if (q.includes('biograd')) {
-    const studies = STUDY_STRUCTURE.biograd.classicalStudies
-      .map((s) => `• ${s.name} (${s.level})`)
-      .join('\n');
-
-    return `U dislociranom studijskom centru EFFECTUS veleučilišta u Biogradu na Moru izvode se sljedeći klasični studiji:\n\n${studies}\n\n${STUDY_STRUCTURE.biograd.note}`;
-  }
-
-  if (q.includes('osijek')) {
-    const studies = STUDY_STRUCTURE.osijek.classicalStudies
-      .map((s) => `• ${s.name} (${s.level})`)
-      .join('\n');
-
-    return `U dislociranom studijskom centru EFFECTUS veleučilišta u Osijeku izvodi se:\n\n${studies}\n\n${STUDY_STRUCTURE.osijek.note}`;
-  }
-
-  if (q.includes('zapresic') || q.includes('zaprešić')) {
-    const studies = STUDY_STRUCTURE.zapresic.onlineStudies
-      .map((s) => `• ${s}`)
-      .join('\n');
-
-    return `Zaprešić je sjedište EFFECTUS veleučilišta.\n\n${STUDY_STRUCTURE.zapresic.classicalNote}\n\nU Zaprešiću se organiziraju osobito online studiji:\n\n${studies}`;
-  }
-
+  // Location-specific answers come from RAG (Effectus has single location)
   return null;
 }
 
@@ -1017,73 +994,9 @@ function hardInterceptAdmissionsQuestion(question: string): string | null {
 
   if (!asksAdmissions) return null;
 
-  if (q.includes('biograd')) {
-    return [
-      "U Biogradu na Moru klasično se izvode samo **dva stručna prijediplomska studija**:",
-      "• Poslovna ekonomija i financije",
-      "• Menadžment u turizmu i ugostiteljstvu",
-      "",
-      "Zato se za Biograd ne postavlja pitanje o diplomskom studiju, jer se ondje klasično izvode samo prijediplomski programi.",
-      "",
-      "Za točne uvjete upisa, potrebnu dokumentaciju, rokove i školarinu potrebno je pratiti službenu stranicu upisa EFFECTUS veleučilišta.",
-      "",
-      "Mogu vam pomoći i s:",
-      "1️⃣ Kolika je školarina na EFFECTUS veleučilištu?",
-      "2️⃣ Koliko traje studij u Biogradu na Moru?",
-      "3️⃣ Kako izgleda procedura upisa?",
-      "4️⃣ Kako izgleda online studiranje na Effectusu?",
-      "",
-      `🔹 Izvor: ${STUDY_STRUCTURE.admissions.generalSource}`,
-    ].join('\n');
-  }
-
-  if (q.includes('osijek')) {
-    return [
-      "U Osijeku se klasično izvodi samo **jedan stručni diplomski studij**:",
-      "• Projektni menadžment",
-      "",
-      "Osijek je također upisno mjesto za online studije EFFECTUS veleučilišta.",
-      "",
-      "Za točne uvjete upisa, potrebnu dokumentaciju, rokove i školarinu potrebno je pratiti službenu stranicu upisa EFFECTUS veleučilišta.",
-      "",
-      "Mogu vam pomoći i s:",
-      "1️⃣ Kolika je školarina na EFFECTUS veleučilištu?",
-      "2️⃣ Kako izgleda procedura upisa?",
-      "3️⃣ Kako izgleda online studiranje na Effectusu?",
-      "4️⃣ Koji studiji postoje u Osijeku?",
-      "",
-      `🔹 Izvor: ${STUDY_STRUCTURE.admissions.generalSource}`,
-    ].join('\n');
-  }
-
-  if (q.includes('skolarina') || q.includes('školarina')) {
-    return [
-      "Godišnje školarine na EFFECTUS veleučilištu za ak. god. 2026./2027.:",
-      "",
-      "**Stručni kratki studij (online):**",
-      "• Primijenjena ekonomija — **2.760,00 EUR**",
-      "",
-      "**Stručni prijediplomski studiji:**",
-      "• Poslovanje i upravljanje (svi smjerovi) — **3.000,00 EUR**",
-      "• Informacijske tehnologije — **3.300,00 EUR**",
-      "• Menadžment u turizmu i ugostiteljstvu (Biograd n/M) — **3.000,00 EUR**",
-      "• Socijalna i kulturna integracija — **3.000,00 EUR**",
-      "",
-      "**Stručni diplomski studiji:**",
-      "• Primijenjene IT, Financije, Projektni menadžment,",
-      "  Komunikacijski menadžment, Menadžment javnog sektora — **3.600,00 EUR**",
-      "",
-      "Jednokratni troškovi: prijava **100,00 EUR** + upis **100,00 EUR**.",
-      "Popusti: 5% jednokratno plaćanje · 5% obiteljski · 10% za nastavak diplomskog.",
-      "",
-      "Mogu vam pomoći i s:",
-      "1️⃣ Kako izgleda procedura upisa?",
-      "2️⃣ Koji studiji postoje u Biogradu na Moru?",
-      "3️⃣ Koji studiji postoje u Osijeku?",
-      "4️⃣ Kako izgleda online studiranje na Effectusu?",
-      "",
-      `🔹 Izvor: ${STUDY_STRUCTURE.admissions.tuitionSource}`,
-    ].join('\n');
+  // Školarina i lokacije — dolaze iz RAG-a (Effectus ima samo jednu lokaciju, a cijene se dohvaćaju iz izvora)
+  if (q.includes('skolarina') || q.includes('školarina') || q.includes('biograd') || q.includes('osijek')) {
+    return null;
   }
 
   // BiH / inozemstvo — return null so FAQ handler takes over with specific BiH info.
@@ -1138,7 +1051,7 @@ function hardInterceptAdmissionsQuestion(question: string): string | null {
       "",
       "📧 Sva pitanja: info@effectus.com.hr",
       "",
-      `🔹 Izvor: ${STUDY_STRUCTURE.admissions.procedureSource}`,
+      `🔹 Izvor: https://effectus.com.hr/upisi/`,
     ].join('\n');
   }
 
@@ -2452,13 +2365,11 @@ function extractFactFirstAnswer(
   }
 
   if (intent === 'popis_cjelozivotnih') {
-    // Use STUDY_STRUCTURE directly — Supabase entity_names lack diacritics and
-    // may include page-section titles rather than actual programme names.
-    const programs = STUDY_STRUCTURE.cjelozivotno.programs;
-    if (programs.length) {
-      const list = programs.map((p, i) => `${i + 1}. ${p.name}`).join('\n');
-      const sourceUrl = STUDY_STRUCTURE.cjelozivotno.overviewSource;
-      return `Programi cjeloživotnog obrazovanja koje nudi EFFECTUS veleučilište:\n\n${list}\n\nViše informacija: ${sourceUrl}`;
+    // Falls through to RAG — STUDY_STRUCTURE.cjelozivotno populated after ingest
+    const studyValues = Object.values(STUDY_STRUCTURE) as Array<{ name?: string }>;
+    const czoPrograms = studyValues.filter(s => s.name).map((s, i) => `${i + 1}. ${s.name}`);
+    if (czoPrograms.length) {
+      return `Programi cjeloživotnog obrazovanja koje nudi EFFECTUS veleučilište:\n\n${czoPrograms.join('\n')}\n\nViše informacija: https://effectus.com.hr/cjelozivotno-obrazovanje/`;
     }
   }
 
@@ -3054,39 +2965,24 @@ export async function POST(req: NextRequest) {
       /\bpopis studijskih programa\b/i.test(userMessage.content) ||
       /\bsvi studijski programi\b/i.test(userMessage.content))
     ) {
-      const short = STUDY_STRUCTURE.zapresic.shortOnlineStudies;
-      const ug = STUDY_STRUCTURE.zapresic.undergraduateOnlineStudies;
-      const grad = STUDY_STRUCTURE.zapresic.graduateOnlineStudies;
-      const biogradStudies = STUDY_STRUCTURE.biograd.classicalStudies;
-      const osijekStudies = STUDY_STRUCTURE.osijek.classicalStudies;
-      const catalogAnswer = [
-        '**Studijski programi EFFECTUS veleučilišta Zaprešić:**',
-        '',
-        '📍 **Klasična nastava — Biograd na Moru** (stručni prijediplomski, 3 god / 180 ECTS)',
-        ...biogradStudies.map(s => `• ${s.name}`),
-        '',
-        '📍 **Klasična nastava — Osijek** (stručni diplomski, 2 god / 120 ECTS)',
-        ...osijekStudies.map(s => `• ${s.name}`),
-        '',
-        '🌐 **Online — Stručni kratki studij** (2 god / 120 ECTS — bez državne mature)',
-        ...short.map(s => `• ${s.name}${s.note ? ` — ${s.note}` : ''}`),
-        '',
-        '🌐 **Online — Stručni prijediplomski studiji** (3 god / 180 ECTS)',
-        ...ug.map(s => `• ${s.name}${s.note ? ` — ${s.note}` : ''}`),
-        '',
-        '🌐 **Online — Stručni diplomski studiji** (2 god / 120 ECTS)',
-        ...grad.map(s => `• ${s.name}${s.note ? ` — ${s.note}` : ''}`),
-        '',
-        'Svi online studiji izvode se bez potrebe za fizičkom prisutnošću.',
-        '',
-        'Mogu vam pomoći i s:',
-        '1. Koji su uvjeti upisa na EFFECTUS veleučilište?',
-        '2. Kolika je školarina za pojedini studij?',
-        '3. Kako izgleda online studiranje?',
-        '',
-        `🔹 Izvor: ${STUDY_STRUCTURE.zapresic.source}`,
-      ].join('\n');
-      return new Response(catalogAnswer, { status: 200, headers: PLAIN_TEXT_HEADERS });
+      // Falls through to RAG — study catalog populated after ingest
+      const programs = Object.values(STUDY_STRUCTURE);
+      if (programs.length > 0) {
+        const list = programs.map((s: any) => `• ${s.name} (${s.level})`).join('\n');
+        const catalogAnswer = [
+          '**Studijski programi EFFECTUS veleučilišta:**',
+          '',
+          list,
+          '',
+          'Mogu vam pomoći i s:',
+          '1. Koji su uvjeti upisa na EFFECTUS veleučilište?',
+          '2. Kolika je školarina za pojedini studij?',
+          '3. Postoji li online studij?',
+          '',
+          '🔹 Izvor: https://effectus.com.hr/studiji/',
+        ].join('\n');
+        return new Response(catalogAnswer, { status: 200, headers: PLAIN_TEXT_HEADERS });
+      }
     }
 
     // ── FAST-PATH: "Koje programe cjeloživotnog obrazovanja nudite?" ──────────
@@ -3099,16 +2995,19 @@ export async function POST(req: NextRequest) {
        /\bpopis.*cjelozivotno\b/i.test(userMessage.content) ||
        /\bprograme cjelozivotnog\b/i.test(userMessage.content))
     ) {
-      const programs = STUDY_STRUCTURE.cjelozivotno.programs;
-      const list = programs.map((p, i) => `${i + 1}. ${p.name}`).join('\n');
-      const czoAnswer = [
-        '**Programi cjeloživotnog obrazovanja EFFECTUS veleučilišta:**',
-        '',
-        list,
-        '',
-        `🔹 Više informacija: ${STUDY_STRUCTURE.cjelozivotno.overviewSource}`,
-      ].join('\n');
-      return new Response(czoAnswer, { status: 200, headers: PLAIN_TEXT_HEADERS });
+      // Falls through to RAG when study structure not yet populated
+      const czoPrograms = Object.values(STUDY_STRUCTURE) as Array<{ name?: string }>;
+      if (czoPrograms.length > 0 && czoPrograms[0].name) {
+        const list = czoPrograms.map((p, i) => `${i + 1}. ${p.name}`).join('\n');
+        const czoAnswer = [
+          '**Programi cjeloživotnog obrazovanja EFFECTUS veleučilišta:**',
+          '',
+          list,
+          '',
+          '🔹 Više informacija: https://effectus.com.hr/cjelozivotno-obrazovanje/',
+        ].join('\n');
+        return new Response(czoAnswer, { status: 200, headers: PLAIN_TEXT_HEADERS });
+      }
     }
 
     // ── FAST-PATH: rokovi upisa / akademska godina ───────────────────────────
@@ -3271,10 +3170,11 @@ export async function POST(req: NextRequest) {
       const lastAssistant = [...messages].reverse().find(m => m.role === 'assistant' && m.content?.trim());
       if (lastAssistant?.content) {
         const { STUDY_PROGRAM_COURSE_MAP: SPCM } = await import('@/lib/knowledge/teachers');
-        for (const prog of SPCM) {
-          if (!prog.isOnline && lastAssistant.content.includes(prog.name)) {
+        for (const _prog of SPCM) {
+          const prog = _prog as any;
+          if (!prog.isOnline && prog.name && lastAssistant.content.includes(prog.name)) {
             return new Response(
-              `Studij **${prog.name}** izvodi se isključivo klasično (u učionici) u ${prog.location.replace(' (klasično)', '')}.\n\nOnline verzija ovog studija ne postoji.\n\nAko vas zanima online studiranje, EFFECTUS veleučilište nudi sljedeće online programe:\n• Poslovna ekonomija i financije\n• Informacijske tehnologije\n• Menadžment javnog sektora\n• Komunikacijski menadžment\n• i drugi\n\nMogu vam pomoći i s:\n1. Koji online studiji postoje na Effectusu?\n2. Kolika je školarina?\n3. Koji su uvjeti upisa?\n\n🔹 Izvor: https://effectus.com.hr/studijski-programi`,
+              `Studij **${prog.name}** izvodi se isključivo klasično (u učionici).\n\nOnline verzija ovog studija ne postoji.\n\nAko vas zanima online studiranje, posjetite https://effectus.com.hr/studiji/ za popis online programa.\n\nMogu vam pomoći i s:\n1. Koji studiji postoje na Effectusu?\n2. Kolika je školarina?\n3. Koji su uvjeti upisa?\n\n🔹 Izvor: https://effectus.com.hr/studiji/`,
               { status: 200, headers: PLAIN_TEXT_HEADERS }
             );
           }
@@ -3527,12 +3427,7 @@ export async function POST(req: NextRequest) {
       // If the question already names a specific known study program → skip clarification
       // and fall through to RAG which has full course/teacher data from predmeti scrape.
       {
-        const allStudyNames = [
-          ...STUDY_STRUCTURE.zapresic.undergraduateOnlineStudies.map(s => s.name),
-          ...STUDY_STRUCTURE.zapresic.graduateOnlineStudies.map(s => s.name),
-          ...STUDY_STRUCTURE.zapresic.shortOnlineStudies.map(s => s.name),
-          ...STUDY_STRUCTURE.biograd.classicalStudies.map(s => s.name),
-        ];
+        const allStudyNames = Object.values(STUDY_STRUCTURE).map((s: any) => s.name).filter(Boolean);
         const uniqueNames = Array.from(new Set(allStudyNames));
         const qNorm = normalizeText(userMessage.content);
 
