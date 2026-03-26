@@ -13,9 +13,9 @@ type ChatWindowProps = {
   heroPrompts?: string[];
 };
 
-const BRAND = '#cc0099';
-const BRAND_DARK = '#990073';
-const BRAND_LIGHT = '#fce6f5';
+const BRAND = '#4a5568';
+const BRAND_DARK = '#2d3748';
+const BRAND_LIGHT = '#edf2f7';
 
 // Module-level slot — the mounted ChatWindow registers its openPopup callback here.
 // All link handlers across parseInline / SitePreview / renderContent call this
@@ -716,7 +716,7 @@ export function ChatWindow({ institutionName, description, heroPrompts = [] }: C
       {/* Hero card — collapses after first question */}
       <section className="hero-section" style={{
         flexShrink: 0,
-        background: `linear-gradient(135deg, ${BRAND} 0%, #990073 60%, #cc00aa 100%)`,
+        background: `linear-gradient(135deg, #4a5568 0%, #2d3748 60%, #1a202c 100%)`,
         color: '#fff',
         borderRadius: 16,
         padding: heroVisible ? '20px 28px 18px' : '0',
