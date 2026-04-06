@@ -2199,7 +2199,7 @@ function extractFactFirstAnswer(
         if (match) return `${match[0].trim()}\n\nIzvor: ${chunk.url}`;
       }
     }
-    return STRICT_FALLBACK;
+    return null;
   }
 
   if (intent === 'uvjeti') {
@@ -2218,7 +2218,7 @@ function extractFactFirstAnswer(
       const maybe = formatBulletListFromChunk(chunk, 'Uvjeti koji su navedeni u izvoru su:');
       if (maybe) return maybe;
     }
-    return STRICT_FALLBACK;
+    return null;
   }
 
   if (intent === 'cijena') {
@@ -2239,7 +2239,7 @@ function extractFactFirstAnswer(
       const maybe = formatBulletListFromChunk(chunk, 'Cijena i pogodnosti koje su navedene u izvoru su:');
       if (maybe) return maybe;
     }
-    return STRICT_FALLBACK;
+    return null;
   }
 
   if (intent === 'kontakt') {
@@ -2259,7 +2259,7 @@ function extractFactFirstAnswer(
       const maybe = formatBulletListFromChunk(chunk, 'Kontakt podaci koji su navedeni u izvoru su:');
       if (maybe) return maybe;
     }
-    return STRICT_FALLBACK;
+    return null;
   }
 
   if (intent === 'termini') {
@@ -2274,7 +2274,7 @@ function extractFactFirstAnswer(
       const maybe = formatBulletListFromChunk(chunk, 'Termini ili informacije o održavanju koje su navedene u izvoru su:');
       if (maybe) return maybe;
     }
-    return STRICT_FALLBACK;
+    return null;
   }
 
   if (intent === 'sadrzaj') {
@@ -2283,7 +2283,7 @@ function extractFactFirstAnswer(
       const maybe = formatBulletListFromChunk(chunk, 'Sadržaj koji je naveden u izvoru je:');
       if (maybe) return maybe;
     }
-    return STRICT_FALLBACK;
+    return null;
   }
 
   if (intent === 'ishodi') {
@@ -2292,7 +2292,7 @@ function extractFactFirstAnswer(
       const maybe = formatBulletListFromChunk(chunk, 'Ishodi koji su navedeni u izvoru su:');
       if (maybe) return maybe;
     }
-    return STRICT_FALLBACK;
+    return null;
   }
 
   if (intent === 'izvedba') {
@@ -2301,7 +2301,7 @@ function extractFactFirstAnswer(
       const sentences = splitIntoSentences(chunk.content);
       if (sentences.length) return `${sentences.slice(0, 2).join(' ')}\n\nIzvor: ${chunk.url}`;
     }
-    return STRICT_FALLBACK;
+    return null;
   }
 
   if (intent === 'nositelj') {
@@ -2340,7 +2340,7 @@ function extractFactFirstAnswer(
       const maybe = formatBulletListFromChunk(chunk, `Nastavnici za ${entityLabel || 'ovaj kolegij'}:`);
       if (maybe) return maybe;
     }
-    return STRICT_FALLBACK;
+    return null;
   }
 
   if (intent === 'ects') {
@@ -2352,7 +2352,7 @@ function extractFactFirstAnswer(
       const maybe = formatBulletListFromChunk(chunk, 'ECTS podaci koji su navedeni u izvoru su:');
       if (maybe) return maybe;
     }
-    return STRICT_FALLBACK;
+    return null;
   }
 
   if (intent === 'opis') {
@@ -2361,7 +2361,7 @@ function extractFactFirstAnswer(
       const sentences = splitIntoSentences(chunk.content);
       if (sentences.length) return `${sentences.slice(0, 2).join(' ')}\n\nIzvor: ${chunk.url}`;
     }
-    return STRICT_FALLBACK;
+    return null;
   }
 
   if (intent === 'popis_cjelozivotnih') {
