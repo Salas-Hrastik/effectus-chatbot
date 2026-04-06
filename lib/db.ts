@@ -1,6 +1,6 @@
 import { Pool } from 'pg';
 
-const connectionString = process.env.DATABASE_URL;
+const connectionString = process.env.DATABASE_URL?.trim();
 
 if (!connectionString) {
   throw new Error('DATABASE_URL nije postavljen u .env.local');

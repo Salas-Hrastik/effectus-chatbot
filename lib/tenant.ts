@@ -1,7 +1,7 @@
 import { tenants, type TenantId } from '@/tenants';
 
 function getActiveTenantId(): TenantId {
-  const tenantId = (process.env.TENANT_ID || 'default') as TenantId;
+  const tenantId = ((process.env.TENANT_ID || 'default').trim()) as TenantId;
 
   if (!tenants[tenantId]) {
     return 'default';
