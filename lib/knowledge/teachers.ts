@@ -27,11 +27,18 @@ export const STUDY_PROGRAM_COURSE_MAP: StudyProgramEntry[] = [];
 
 export function isTeacherIntent(question: string): boolean {
   const q = question.toLowerCase();
-  const keywords = [
-    'nastavnik', 'predavač', 'profesor', 'tko predaje', 'predaje',
-    'nastavnici', 'suradnici', 'asistent', 'kolegij',
+  // Only trigger for explicit teacher/person questions, NOT course content questions
+  const teacherKeywords = [
+    'nastavnik', 'predavač', 'profesor', 'tko predaje',
+    'nastavnici', 'suradnici', 'asistent',
   ];
-  return keywords.some(kw => q.includes(kw));
+  if (teacherKeywords.some(kw => q.includes(kw))) return true;
+
+  // 'predaje' and 'kolegij' only trigger teacher intent if combined with who/which person
+  const whoPatterns = ['tko', 'koji profesor', 'koji predavač', 'koji nastavnik'];
+  if (whoPatterns.some(p => q.includes(p))) return true;
+
+  return false;
 }
 
 export function findTeachersForCourse(question: string): string | null {
