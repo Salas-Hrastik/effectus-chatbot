@@ -57,16 +57,18 @@ export function formatReferadaAnswer(question: string): string | null {
     if (KNJIZNICA_INFO.email) {
       return `**Knjižnica EFFECTUS veleučilišta**\n📧 ${KNJIZNICA_INFO.email}\n🔗 ${KNJIZNICA_INFO.url}`;
     }
-    return `Za informacije o knjižnici, posjetite: ${KNJIZNICA_INFO.url} ili pišite na info@effectus.com.hr.`;
+    // No data — let RAG answer
+    return null;
   }
 
   if (q.includes('završni') || q.includes('diplomski rad')) {
     if (ZAVRSNI_RADOVI_INFO.info) return ZAVRSNI_RADOVI_INFO.info;
-    return 'Za informacije o završnim i diplomskim radovima, molim posjetite https://effectus.com.hr/studentske-sluzbe/zavrsni-i-diplomski-rad/ ili kontaktirajte referadu.';
+    return null;
   }
 
   if (q.includes('ispitni rok') || q.includes('rokovi ispita')) {
-    return `${ISPITNI_ROKOVI_INFO.info}\n🔗 ${ISPITNI_ROKOVI_INFO.url}`;
+    if (ISPITNI_ROKOVI_INFO.info) return `${ISPITNI_ROKOVI_INFO.info}\n🔗 ${ISPITNI_ROKOVI_INFO.url}`;
+    return null;
   }
 
   if (q.includes('radno vrijeme') || q.includes('referada')) {
@@ -75,8 +77,9 @@ export function formatReferadaAnswer(question: string): string | null {
         .map(([loc, hours]) => `**${loc}**\n` + Object.entries(hours).map(([day, time]) => `  ${day}: ${time}`).join('\n'))
         .join('\n\n');
     }
-    return 'Za radno vrijeme i kontakt studentske referade, posjetite: https://effectus.com.hr/studentske-sluzbe/ ili pišite na info@effectus.com.hr.';
+    return null;
   }
 
-  return 'Za pitanja o studentskim službama i referadi, posjetite: https://effectus.com.hr/studentske-sluzbe/ ili pišite na info@effectus.com.hr.';
+  // No hardcoded data available — let RAG answer
+  return null;
 }

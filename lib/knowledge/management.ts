@@ -91,6 +91,14 @@ export function formatStudyDirectorAnswer(question: string): string | null {
 export function findManagementAnswer(question: string): string | null {
   if (!isManagementIntent(question)) return null;
 
+  // If no management data is loaded, let RAG answer from Supabase
+  if (
+    CURRENT_MANAGEMENT.length === 0 &&
+    STUDY_DIRECTORS.length === 0 &&
+    PAST_DEANS.length === 0 &&
+    UPRAVNO_VIJECE.length === 0
+  ) return null;
+
   const directorAnswer = formatStudyDirectorAnswer(question);
   if (directorAnswer) return directorAnswer;
 
