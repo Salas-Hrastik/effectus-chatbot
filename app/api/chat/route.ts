@@ -1132,7 +1132,8 @@ function normalizeContentGroupForRetrieval(cg: ContentGroup): ContentGroup {
     cg === 'diplomski_studiji' ||
     cg === 'specijalisticki_studiji' ||
     cg === 'kolegiji' ||
-    cg === 'nastavnici'
+    cg === 'nastavnici' ||
+    cg === 'popis_studijskih'
   ) {
     return 'studijski_programi';
   }
@@ -1851,7 +1852,10 @@ function mergeChunks(
           chunkContentGroup === 'studijski_programi' ||
           chunkContentGroup === 'study_programs';
 
-        return isStudyProgramUrl && !isStudyProgramIndex && hasStudySignals && !isNewsLike;
+        // Allow chunks that either follow bak.hr URL pattern (/studijski-programi/)
+        // OR have direct study signals (entity_type=studij, content_group=studijski_programi)
+        // The latter covers Effectus-style flat URLs (effectus.com.hr/financije-i-poslovno-pravo)
+        return (isStudyProgramUrl || hasStudySignals) && !isStudyProgramIndex && !isNewsLike;
       })
     : merged;
 

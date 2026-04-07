@@ -57,8 +57,9 @@ export function formatStudyAdmissionsAnswer(question: string): string | null {
   const isStudyQ = STUDIES_KEYWORDS.some(kw => q.includes(kw));
   if (!isStudyQ) return null;
 
+  // If STUDY_STRUCTURE is empty, let RAG answer from Supabase instead of returning a generic fallback
   if (Object.keys(STUDY_STRUCTURE).length === 0) {
-    return 'Za informacije o studijskim programima i upisima, posjetite https://effectus.com.hr/studiji/ ili https://effectus.com.hr/upisi/, odnosno pišite na info@effectus.com.hr.';
+    return null;
   }
 
   const programs = Object.values(STUDY_STRUCTURE);
